@@ -61,7 +61,7 @@ function App() {
 
   useEffect(() => {
     // this is where the code runs
-    db.collection('posts').onSnapshot(snapshot => {
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       //every time  a new post is  added, this code fires...
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id,
@@ -97,13 +97,6 @@ function App() {
 
   return (
     <div className = "app">
-
-      {user?.displayName ? (
-         <ImageUpload username = {user.displayName}/>
-      ): (
-        <h3>Sorry you need to login to upload</h3>
-      )}
-
       <Modal
         open = {open}
         onClose = {() => setOpen(false)}
@@ -178,24 +171,35 @@ function App() {
           src = "./img/header.png"
           alt = "Header"
         />
-      </div>
-
-      {user ? (
+         {user ? (
         <Button onClick = {() => auth.signOut()}>Logout</Button>  
-      ): (
+          ): (
         <div className = "app__loginContainer">
           <Button onClick = {() => setOpenSignIn(true)}>Sign In</Button>
           <Button onClick = {() => setOpen(true)}>Sign Up</Button>
         </div>
       )}
+      </div>
 
-      <h1>Hey Bro</h1>
-
-      {
+      <div className = "app__posts">
+        <div className = "app__postsLeft">
+        {
         posts.map(({id,post}) =>(
-          <Post key = {id} username = {post.username} caption = {post.caption} imageUrl = {post.imageUrl}/>
+          <Post key = {id} postId = {id} user = {user} username = {post.username} caption = {post.caption} imageUrl = {post.imageUrl}/>
         ))
       }
+        </div>
+        <div className = "app__postsRight">
+        
+        </div>
+      
+      </div>
+
+      {user?.displayName ? (
+         <ImageUpload username = {user.displayName}/>
+      ): (
+        <h3 className = "warning">Sorry you need to login to upload and comment!!</h3>
+      )}
 
     </div>
   );

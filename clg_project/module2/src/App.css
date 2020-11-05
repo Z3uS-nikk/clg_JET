@@ -1,19 +1,44 @@
 *{
   margin: 0;
 }
+
 .app{
   background: linear-gradient( 90deg,rgb(39, 176, 255) 0%,rgb(0, 232, 236) 100%);
 }
+
+.app__posts{
+  padding: 20px;
+  display: flex; 
+  justify-content: center;
+}
+.trial{
+  width: auto;
+  height: 50px;
+}
+
 .app__header{
+  position: sticky;
+  top: 0;
+  z-index: 1;
   object-fit: contain;
   background-color: whitesmoke;
   padding: 5px;
   border-bottom: 1px solid cyan;
+  display: flex;
+  justify-content: space-between;
 }
+
 .app__headerImage{
-  height: 80px;
+  height: 60px;
+  object-fit: contain;
 }
+
 .app__signup{
   display: flex;
   flex-direction: column;
+}
+
+.warning{
+  margin-left: 50px;
+  text-align: center;
 }
